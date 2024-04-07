@@ -36,7 +36,9 @@ The arguments are loaded using argparser as:
   2. The inference.py file can be used to load the model that is saved afcter training, load the test data, evaluate and plot confusion matrix and a grid of predicted label of images.
   3. train_part_b.py contain train file which takes a pretrained model from resnet and uses it to train the inaturalist dataset.
      The confusion matrix is plotted nad accuracy printed. It can be tuned by changing optimizer, learning rate, batch size and drop out.
-      
+  4. train_sweep.ipynb is the file that contains the complete dataload, training with early stop and configuurations for sweep
+  5. pretrain.ipynb is the file that loads the resnet model from torchvision and do t6rain
+  6. dataload.ipynb file shows detailed view of data and shows filter output of first convolution layer.
 
   
   
