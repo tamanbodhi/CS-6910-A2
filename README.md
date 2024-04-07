@@ -11,6 +11,8 @@ The repository includes:
 7. 
 
 This repository has files to build and train a CNN from scratch and use a pretrained model.
+
+
 Part A: build from scratch
 1. use file part_a_train.py to build the model from scratch.
 It can be run as python part_a_train.py --arguments
