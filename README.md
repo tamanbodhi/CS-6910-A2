@@ -8,6 +8,8 @@ The repository includes:
 4. train_sweep.ipynb
 5. pretrain.ipynb
 6. dataload.ipynb
+7. 
+
 This repository has files to build and train a CNN from scratch and use a pretrained model.
 Part A: build from scratch
 1. use file part_a_train.py to build the model from scratch.
