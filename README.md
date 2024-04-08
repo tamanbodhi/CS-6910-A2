@@ -42,7 +42,8 @@ It can be run as **python part_a_train.py --arguments**
    The confusion matrix is plotted nad accuracy printed. It can be tuned by changing optimizer, learning rate, batch size and drop out.
    To run the file use command 
          **python train_part_b.py --arguments
-         The arguments used are --batch_size,default=16,--optimizer ,default=sgd,help=optimizer for training last layer, options are sgd and adam --learning_rate, default=0.01,--epochs, default=5
+         The arguments used are 
+               --batch_size,default=16,--optimizer ,default=sgd,help=optimizer for training last layer, options are sgd and adam --learning_rate, default=0.01,--epochs, default=5,--dropout, defaut=0
 
   3. The inference.py file can be used to load the model that is saved after training part a (optionally done ), load the test data, evaluate and plot confusion matrix and a grid of predicted label of images.[ when traing if you are changing dense neurons make sure to change the netork config in CNN class.Its default is 1000]
       run it as **python inference.py** [ load cnn built by us with 1000 dense neurons, in case you are changing model, change the CNN definition of dense neurons ]
