@@ -17,9 +17,9 @@ Part A: build from scratch, save the model, test on the testloader
 1. use file part_a_train.py to build the model from scratch.
 It can be run as **python part_a_train.py --arguments**
 
-The arguments are loaded using argparser as:
-          --wandb_entity',default="bincyantonym")
-          --wandb_project',default="CS6910 A2")
+         The arguments are loaded using argparser as:
+                   --wandb_entity',default="bincyantonym")
+                   --wandb_project',default="CS6910 A2")
          
         --filter_mult', type=int,default=2,help='choices: ["1,2,0.5"]')
         --filter_num', type=int,help='choices: ["32 only since memory exceeded when 64 was used with multiplier"]',default=32)
