@@ -44,7 +44,7 @@ The arguments are loaded using argparser as:
      The arguments used are --batch_size,de
 
   3. The inference.py file can be used to load the model that is saved after training part a (optionally done ), load the test data, evaluate and plot confusion matrix and a grid of predicted label of images.[ when traing if you are changing dense neurons make sure to change the netork config in CNN class.Its default is 1000]
-      run it as **python inference.py [ load cnn built by us with 1000 dense neurons, in case you are changing model, change the CNN definition of dense neurons ]
+      run it as **python inference.py** [ load cnn built by us with 1000 dense neurons, in case you are changing model, change the CNN definition of dense neurons ]
  
      
   5. train_sweep.ipynb is the file that contains the complete dataload, training with early stop and configuurations for sweep
