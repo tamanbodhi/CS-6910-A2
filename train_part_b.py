@@ -99,7 +99,7 @@ class PreModel:
         ax.yaxis.set_ticklabels(classes)
         plt.xticks(rotation=90)
         plt.yticks(rotation=0)
-    def fitresnet(self):
+    def fitresnet(self,batch_size=16,optimizer="sgd",learning_rate=0.01,dropout=0,epochs=5):
         num_classes=10
         batch_size=16
         trainloader,validationloader,testloader=self.prepare(batch_size)
@@ -114,7 +114,7 @@ class PreModel:
         for param in resnet.parameters():
             if param.requires_grad:
                 print(param.shape)
-        dropout_rate = 0.0  # Example dropout rate, adjust as needed
+        dropout_rate = dropout  # Example dropout rate, adjust as needed
         resnet.fc = nn.Sequential(
         nn.Dropout(dropout_rate),
         nn.Linear(in_features, num_classes)
@@ -124,15 +124,19 @@ class PreModel:
         
         resnet = resnet.to(device)
         loss_fn = nn.CrossEntropyLoss()
-        opt = optim.SGD(resnet.parameters(), lr=0.01)
+        if optimizer=="sgd":
+            opt = optim.SGD(resnet.parameters(), lr=learning_rate)
+        if optimizer=="adam":
+            opt = optim.Adam(resnet.parameters())
+
         loss_epoch_arr = []
-        max_epochs = 1
+        epochs = epochs
 
         min_loss = 1000
 
         n_iters = np.ceil(10000/batch_size)
 
-        for epoch in range(max_epochs):
+        for epoch in range(epochs):
             resnet.train()
             for i, data in enumerate(trainloader, 0):
 
@@ -160,7 +164,7 @@ class PreModel:
             loss_epoch_arr.append(loss.item())
             resnet.eval()   
             print('Epoch: %d/%d, Test acc: %0.2f, Train acc: %0.2f' % (
-                epoch, max_epochs, 
+                epoch, epochs, 
                 self.evaluation(testloader, resnet), self.evaluation(trainloader, resnet)))
             
         path_to_save='/home/bincy/A2/CS-6910-A2/model.pth'
@@ -170,6 +174,7 @@ class PreModel:
         plt.xlabel('epochs')
         plt.ylabel('loss')
         plt.title('loss vs epoch')
+        
         
         true_labels, predictions = self.get_all_preds(resnet, testloader)  
         classes = testloader.dataset.classes 
@@ -181,6 +186,18 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--wandb_entity',default="bincyantonym")
     parser.add_argument('--wandb_project',default="CS6910 A2")
+    parser.add_argument('--batch_size',type=int,default=16,help='Batch size used to train neural network,64 and above resulted in cuda error.')
+    parser.add_argument('--optimizer',default="sgd",help='optimizer used to train the model {adam,sgd}.')
+    parser.add_argument('--learning_rate',type=float,default=0.01,help='learning rate for optimizer.')
+    parser.add_argument('--dropout',type=float,default=0,help='drop out to last layer.')
+    parser.add_argument('--epochs',type=int,default=5,help='number of epochs to train.')
+    args = parser.parse_args()
+    
+                        
+    
+    
+    
+    
     mm=PreModel()
     
-    mm.fitresnet()
+    mm.fitresnet(args.batch_size,args.optimizer,args.learning_rate,args.dropout,args.epochs)
