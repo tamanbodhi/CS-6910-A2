@@ -32,8 +32,8 @@ It can be run as **python part_a_train.py --arguments**
          --activation_dense', default='relu',help='ReLU GELU SiLU Mish Tanh for dense layers'
          --batch_size',type=int,default=32,help='Batch size used to train neural network,64 and above resulted in cuda error.'
           --epochs', type=int, default=10,help='	Number of epochs to train neural network.'
-      --use_data_augmentation', type=bool, default=True,help='data augmentation to be done or not.'
-          --use_batch_norm', type=bool, default=True,help='batch normalization to be done or not.'
+            --use_data_augmentation', type=bool, default=True,help='data augmentation to be done or not.'
+                --use_batch_norm', type=bool, default=True,help='batch normalization to be done or not.'
           
  ** The file does complete training with early stopping and saves the model which can be loaded using state_dict.**
 
