@@ -202,7 +202,7 @@ def show_random_predictions(test_loader, model, class_names):
 
 
 #def fit(config):
-def fit(filter_mult=1,filter_num=32,drop_conv=0.1,drop_dense=0.2,use_batch_norm='True',batch_size=32,dense_neurons=1000,kernel_size=3,activation="ReLU",activation_dense="ReLU",epochs=10,use_data_augmentation=True,wandb_project="CS6910 A2"):
+def fit(filter_mult=1,filter_num=32,drop_conv=0.2,drop_dense=0.3,use_batch_norm='True',batch_size=32,dense_neurons=1000,kernel_size=3,activation="ReLU",activation_dense="ReLU",epochs=10,use_data_augmentation=True,wandb_project="CS6910 A2"):
     
     wandb.login() 
     wandb.init(wandb_project,name="part a")
