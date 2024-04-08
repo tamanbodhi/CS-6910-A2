@@ -18,23 +18,23 @@ Part A: build from scratch, save the model, test on the testloader
 It can be run as **python part_a_train.py --arguments**
 
 The arguments are loaded using argparser as:
-    --wandb_entity',default="bincyantonym")
-    --wandb_project',default="CS6910 A2")
-   
-  --filter_mult', type=int,default=2,help='choices: ["1,2,0.5"]')
-  --filter_num', type=int,help='choices: ["32 only since memory exceeded when 64 was used with multiplier"]',default=32)
-    --kernel_size', type=int, default =3,
-                    help='the kernel size 3,5,7,11'
-    --drop_conv', type=float, default=0.2,help='drop out value to be used in conv layers.'
-    --drop_dense', type=float, default=0.3, help='drop out for dense layers')
-   --dense_neurons',type=int, default=500, help='number of neurons in fully connected layers'
-    --activation', default='relu',help='ReLU GELU SiLU Mish Tanh for conv layers'
-   --activation_dense', default='relu',help='ReLU GELU SiLU Mish Tanh for dense layers'
-   --batch_size',type=int,default=32,help='Batch size used to train neural network,64 and above resulted in cuda error.'
-    --epochs', type=int, default=10,help='	Number of epochs to train neural network.'
---use_data_augmentation', type=bool, default=True,help='data augmentation to be done or not.'
-    --use_batch_norm', type=bool, default=True,help='batch normalization to be done or not.'
-    
+          --wandb_entity',default="bincyantonym")
+          --wandb_project',default="CS6910 A2")
+         
+        --filter_mult', type=int,default=2,help='choices: ["1,2,0.5"]')
+        --filter_num', type=int,help='choices: ["32 only since memory exceeded when 64 was used with multiplier"]',default=32)
+          --kernel_size', type=int, default =3,
+                          help='the kernel size 3,5,7,11'
+          --drop_conv', type=float, default=0.2,help='drop out value to be used in conv layers.'
+          --drop_dense', type=float, default=0.3, help='drop out for dense layers')
+         --dense_neurons',type=int, default=500, help='number of neurons in fully connected layers'
+          --activation', default='relu',help='ReLU GELU SiLU Mish Tanh for conv layers'
+         --activation_dense', default='relu',help='ReLU GELU SiLU Mish Tanh for dense layers'
+         --batch_size',type=int,default=32,help='Batch size used to train neural network,64 and above resulted in cuda error.'
+          --epochs', type=int, default=10,help='	Number of epochs to train neural network.'
+      --use_data_augmentation', type=bool, default=True,help='data augmentation to be done or not.'
+          --use_batch_norm', type=bool, default=True,help='batch normalization to be done or not.'
+          
  ** The file does complete training with early stopping and saves the model which can be loaded using state_dict.**
 
    2. train_part_b.py contain train file which takes a pretrained model from resnet and uses it to train the inaturalist dataset.
