@@ -39,9 +39,9 @@ The arguments are loaded using argparser as:
 
    2. train_part_b.py contain train file which takes a pretrained model from resnet and uses it to train the inaturalist dataset.
      
-     The confusion matrix is plotted nad accuracy printed. It can be tuned by changing optimizer, learning rate, batch size and drop out.
-     To run the file use command **python train_part_b.py --arguments
-     The arguments used are --batch_size,de
+   The confusion matrix is plotted nad accuracy printed. It can be tuned by changing optimizer, learning rate, batch size and drop out.
+   To run the file use command **python train_part_b.py --arguments
+   The arguments used are --batch_size,de
 
   3. The inference.py file can be used to load the model that is saved after training part a (optionally done ), load the test data, evaluate and plot confusion matrix and a grid of predicted label of images.[ when traing if you are changing dense neurons make sure to change the netork config in CNN class.Its default is 1000]
       run it as **python inference.py** [ load cnn built by us with 1000 dense neurons, in case you are changing model, change the CNN definition of dense neurons ]
