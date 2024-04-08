@@ -67,7 +67,7 @@ def prepare(batch_size=32, use_data_augmentation=False):
     return trainloader, validationloader, testloader
 
 class CNN(nn.Module):
-    def __init__(self, num_classes=10, in_channels=3, num_filters=[32, 32, 32, 32, 32],kernel_size=3, pool_size=2,drop_conv=0.1, drop_dense=0.2,dense_neurons=1000,activation="ReLU",activation_dense="ReLU",use_batch_norm=True):
+    def __init__(self, num_classes=10, in_channels=3, num_filters=[32, 32, 32, 32, 32],kernel_size=3, pool_size=2,drop_conv=0.2, drop_dense=0.3,dense_neurons=1000,activation="ReLU",activation_dense="ReLU",use_batch_norm=True):
         super(CNN, self).__init__()
         self.conv_layers = nn.ModuleList()
         activations = {
@@ -202,7 +202,7 @@ def show_random_predictions(test_loader, model, class_names):
 
 
 #def fit(config):
-def fit(filter_mult=1,filter_num=32,drop_conv=0.1,drop_dense=0.2,use_batch_norm='True',batch_size=32,dense_neurons=1000,kernel_size=3,activation="ReLU",activation_dense="ReLU",epochs=1,use_data_augmentation=True,wandb_project="CS6910 A2"):
+def fit(filter_mult=1,filter_num=32,drop_conv=0.1,drop_dense=0.2,use_batch_norm='True',batch_size=32,dense_neurons=1000,kernel_size=3,activation="ReLU",activation_dense="ReLU",epochs=10,use_data_augmentation=True,wandb_project="CS6910 A2"):
     
     wandb.login() 
     wandb.init(wandb_project,name="part a")
@@ -271,9 +271,24 @@ def fit(filter_mult=1,filter_num=32,drop_conv=0.1,drop_dense=0.2,use_batch_norm=
             validation_accuracy,train_accuracy,validation_loss,train_loss.item()))
         
         wandb.log({"accuracy_train": train_accuracy, "accuracy_validation": validation_accuracy, "loss_train": train_loss.item(), "loss_validation": validation_loss, 'epochs': epoch})
+        if validation_loss < best_val_loss:
+            best_val_loss = validation_loss
+            best_val_acc = validation_accuracy  # Update best validation accuracy if tracking
+            best_model = copy.deepcopy(net.state_dict())  # Save the best model state
+            no_improvement_count = 0  # Reset counter
+            print('Improvement found at epoch {}: validation loss: {}, validation accuracy: {}'.format(epoch, validation_loss, validation_accuracy))
+        else:
+            no_improvement_count += 1
+            print('No improvement in epoch {}. Current validation loss: {}, Best validation loss: {}'.format(epoch, validation_loss, best_val_loss))
+
+        # Early stopping check
+        if no_improvement_count >= patience:
+            print('No improvement in validation loss for {} consecutive epochs. Stopping training...'.format(patience))
+            break  # Exit the training loop
+    
         
     
-        model.train()
+        net.train()
         
         
     plt.plot(loss_epoch_arr)
@@ -317,8 +332,8 @@ if __name__=="__main__":
     parser.add_argument('--filter_num', type=int,help='choices: ["32 only since memory exceeded when 64 was used with multiplier"]',default=32)
     parser.add_argument('--kernel_size', type=int, default =3,
                     help='the kernel size 3,5,7,11')
-    parser.add_argument('--drop_conv', type=float, default=0.1,help='drop out value to be used in conv layers.')
-    parser.add_argument('--drop_dense', type=float, default=0.2, help='drop out for dense layers')
+    parser.add_argument('--drop_conv', type=float, default=0.2,help='drop out value to be used in conv layers.')
+    parser.add_argument('--drop_dense', type=float, default=0.3, help='drop out for dense layers')
     parser.add_argument('--dense_neurons',type=int, default=1000, help='number of neurons in fully connected layers')
     parser.add_argument('--activation', default='relu',help='ReLU GELU SiLU Mish Tanh for conv layers')
     parser.add_argument('--activation_dense', default='relu',help='ReLU GELU SiLU Mish Tanh for dense layers')
